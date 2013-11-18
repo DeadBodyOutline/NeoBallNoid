@@ -5,6 +5,9 @@
 #include "box2d/Box2DDebug.h"
 #include "box2d/ContactListener.h"
 
+#include "sprites/Pad.h"
+#include "sprites/Ball.h"
+
 USING_NS_CC;
 
 GameScene::GameScene()
@@ -35,8 +38,24 @@ bool GameScene::init()
     initPhysics();
     scheduleUpdate();
 
-    // TODO sprites
-    //CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    CCSize size = CCDirector::sharedDirector()->getVisibleSize();
+
+    // pads
+    PadSprite *pad1 = new PadSprite(m_world);
+    pad1->setPosition(ccp(origin.x + size.width / 2, origin.y + 35));
+    pad1->init();
+    addChild(pad1);
+
+    PadSprite *pad2 = new PadSprite(m_world);
+    pad2->setPosition(ccp(origin.x + size.width / 2, origin.y + size.height - 35));
+    pad2->init();
+    addChild(pad2);
+
+    BallSprite *ball = new BallSprite(m_world);
+    ball->setPosition(ccp(origin.x + size.width / 2, origin.y + 300));
+    ball->init();
+    addChild(ball);
 
     return true;
 }
