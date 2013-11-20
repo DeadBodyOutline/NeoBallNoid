@@ -12,6 +12,7 @@ SOURCES = main.cpp \
         ../src/MainScene.cpp \
         ../src/box2d/ContactListener.cpp \
         ../src/sprites/Sprite.cpp \
+        ../src/sprites/Background.cpp \
         ../src/sprites/Pad.cpp \
         ../src/sprites/Ball.cpp \
         ../src/sprites/Brick.cpp \

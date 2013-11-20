@@ -5,6 +5,7 @@
 #include "box2d/Box2DDebug.h"
 #include "box2d/ContactListener.h"
 
+#include "sprites/Background.h"
 #include "sprites/Pad.h"
 #include "sprites/Ball.h"
 #include "sprites/Brick.h"
@@ -41,6 +42,12 @@ bool GameScene::init()
 
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     CCSize size = CCDirector::sharedDirector()->getVisibleSize();
+
+    // background
+    BackgroundSprite *background = new BackgroundSprite();
+    background->setPosition(ccp(origin.x + size.width / 2, origin.y + size.height / 2));
+    background->init();
+    addChild(background, 0);
 
     // pads
     PadSprite *pad1 = new PadSprite(m_world);
