@@ -7,6 +7,7 @@
 
 #include "sprites/Pad.h"
 #include "sprites/Ball.h"
+#include "sprites/Brick.h"
 
 USING_NS_CC;
 
@@ -47,15 +48,26 @@ bool GameScene::init()
     pad1->init();
     addChild(pad1);
 
+    BallSprite *ball1 = new BallSprite(m_world);
+    ball1->setPosition(ccp(pad1->getPositionX(), pad1->getPositionY() + 150));
+    ball1->init();
+    addChild(ball1);
+
     PadSprite *pad2 = new PadSprite(m_world);
     pad2->setPosition(ccp(origin.x + size.width / 2, origin.y + size.height - 35));
     pad2->init();
     addChild(pad2);
 
-    BallSprite *ball = new BallSprite(m_world);
-    ball->setPosition(ccp(origin.x + size.width / 2, origin.y + 300));
-    ball->init();
-    addChild(ball);
+    BallSprite *ball2 = new BallSprite(m_world);
+    ball2->setPosition(ccp(pad2->getPositionX(), pad2->getPositionY() - 150));
+    ball2->init();
+    addChild(ball2);
+
+    // XXX bricks (read from level file)
+    BrickSprite *brick = new BrickSprite(m_world);
+    brick->setPosition(ccp(origin.x + size.width / 2, origin.y + size.height / 2));
+    brick->init();
+    addChild(brick);
 
     return true;
 }
@@ -93,6 +105,13 @@ void GameScene::update(float dt)
                         b->GetPosition().y * PTM_RATIO));
 
             node->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
+
+            // destroys a brick if it's marked to be destroyed
+            BrickSprite *brick = dynamic_cast<BrickSprite *>(node);
+            if (brick && brick->canBeDeleted()) {
+                removeChild(brick, true);
+                delete brick;
+            }
         }
     }
 }

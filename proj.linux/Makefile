@@ -14,6 +14,7 @@ SOURCES = main.cpp \
         ../src/sprites/Sprite.cpp \
         ../src/sprites/Pad.cpp \
         ../src/sprites/Ball.cpp \
+        ../src/sprites/Brick.cpp \
 
 ifdef DEBUGDRAW
 DEFINES += -DDEBUGDRAW
